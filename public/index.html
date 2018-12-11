@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Scraping With Mongoose</title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css">
+  </head>
+  <body>
+
+                <div class="ui segment inverted"  style="margin-bottom: 0px !important; padding-left: 30px !important;">
+                    <div class="ui statistic grey header">
+                        <div class="label padded" style="color: white !important;">
+                        NY Times
+                        </div>
+                        <div class="value">
+                        Scraper
+                        </div>
+                    </div>
+                </div>
+                <div class="ui secondary pointing menu"  style="margin-top: 0px !important; padding-left: 30px !important;">
+                    <a class="active item homeLink" href="/">
+                        Home
+                    </a>
+                    <a class="item savedLink" onclick="savedArticles()">
+                        Your Saved Articles
+                    </a>
+                    <a class="ui button" onclick="scrapeNew()">
+                        Scrape New Articles
+                    </a>
+                    <a class="ui button" onclick="clearArticles()">
+                        Clear Saved Articles
+                    </a>
+                    </div>
+                </div>
+                <div class="ui container">
+                        <h1>Scraped Articles</h1>
+                        <div class="articleList">
+                            <!-- <div class="ui segment">
+                        
+                            </div>                 -->
+                        </div>
+                </div>
+
+            
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
