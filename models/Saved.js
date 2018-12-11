@@ -14,7 +14,7 @@ var SavedSchema = new Schema({
   summary: {
     type: String,
     required: true
-  },
+  }
 });
 
 var Saved = mongoose.model("Saved", SavedSchema);

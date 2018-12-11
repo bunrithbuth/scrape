@@ -18,6 +18,11 @@ app.use(express.json())
 
 app.listen(3001, _ => console.log('http://localhost:3000'))
 
+String.prototype.toObjectId = function() {
+    var ObjectId = (require('mongoose').Types.ObjectId);
+    return new ObjectId(this.toString());
+};  
+
 app.get("/scrape/new", function(req, res) {
     db.Article.deleteMany({}, (err, data) => {
         if (err) { console.log(err) }
@@ -127,6 +132,36 @@ app.delete("/saved/article", function(req, res) {
         if (err) { console.log(err) }
         else {
             console.log(data)
+            res.sendStatus(200)
+        }
+    })
+});
+
+app.post("/note", function(req, res) {
+
+    db.Note.create({
+        sid: req.body.sid,
+        body: req.body.body
+    })
+
+    res.sendStatus(200)
+});
+
+app.get("/notes/:sid", function(req, res) {
+    db.Note.find({sid: req.params.sid}, (err, data) => {
+        if (err) { console.log(err) }
+        else {
+            res.json(data)
+        }
+    })
+});
+
+app.delete("/note/:sid", function(req, res) {
+    console.log(req.params.sid)
+    let monid = (req.params.sid).toObjectId()
+    db.Note.deleteOne({_id: monid}, (err, data) => {
+        if (err) { console.log(err) }
+        else {
             res.sendStatus(200)
         }
     })

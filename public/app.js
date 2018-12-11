@@ -131,10 +131,65 @@ function savedArticles() {
                         <a href="${element.link}">
                             <h2 class="ui header">${element.title}</h2>
                         </a>
+                        <a class="ui button primary" id="test" onclick="viewNotes('${element._id}')"> View Notes </a>
                         <button class="ui negative button" onclick="removeArticle('${element.link}')">Remove Article</button>
                         <p style="font-size: 18px">${element.summary}</p>
                     </div>
                 `)
             });
         })
+}
+
+function viewNotes(sid) {
+    $('#prevNotes').empty();
+    
+    fetch(`/notes/${sid}`)
+    .then(function(response) {
+        return response.json();
+    })
+    .then(function(myJson) {
+        myJson.forEach(element => {
+            $('#prevNotes').append(`
+                <div class="content" id="${element._id}" onclick="removeNote('${element._id}')">
+                    <h3>${element.body}</h3>
+                </div>
+            `)
+        })
+        $('#addNote').attr('onclick', `addNote('${sid}')`)
+        $(".test").modal('show');
+    })
+}
+
+function addNote(sid) {
+    let stuff = {
+        sid: sid,
+        body: $('#noteBox').val()
+    }
+    
+    fetch('/note', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json; charset=utf-8' },
+        body: JSON.stringify(stuff)
+    })
+    .then(res => {
+        $('#prevNotes').append(`
+            <div class="content" id="prevNote">
+                <h3>${$('#noteBox').val()}</h3>
+            </div>
+        `)
+        $('#noteBox').val('')
+        $(".test").modal('hide');
+    })
+}
+
+function removeNote(sid) {
+    console.log('triggered')
+    event.preventDefault()
+    fetch(`/note/${sid}`, {
+        method: 'DELETE'
+    })
+    .then(res => {
+        console.log(res)
+        $(`#${sid}`).remove();
+    })
 }
