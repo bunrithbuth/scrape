@@ -9,14 +9,17 @@ const db = require("./models");
 
 const app = express();
 
-mongoose.connect('mongodb://localhost/scraper', {useNewUrlParser: true})
+//mongoose.connect('mongodb://localhost/scraper', {useNewUrlParser: true})
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+
+mongoose.connect(MONGODB_URI);
 
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.urlencoded({extended: true}))
 app.use(express.json())
 
 
-app.listen(3001, _ => console.log('http://localhost:3000'))
+app.listen(process.env.PORT || 3000, _ => console.log('http://localhost:3000'))
 
 String.prototype.toObjectId = function() {
     var ObjectId = (require('mongoose').Types.ObjectId);
